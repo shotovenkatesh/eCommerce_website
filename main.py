@@ -53,7 +53,8 @@ def login_details():
     if user_exist :
         correct_password = check_password_hash(user_exist.password, password)
         if correct_password:
-            return f"{email}  {password}"
+            # redirect them to homepage
+            return "Welcome back old user"
         else:
             flash("Incorrect Password")
             return redirect(url_for('login_details'))
@@ -95,8 +96,8 @@ def signup_details():
         )
         db.session.add(new_user)
         db.session.commit()
-
-        return f"{hashed_password}"
+        # redirect them to homepage
+        return "Welcome new user!"
 
 
 if __name__ == "__main__":
