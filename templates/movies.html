@@ -4,8 +4,39 @@
 	<title>Movie Store</title>
 	<meta charset="UTF-8">
       <link rel="stylesheet" href="static/css/movies.css">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
 </head>
 <body bgcolor="#343A40">
+
+<!--nav barrr-->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+ <a class="navbar-brand" href="#">Movie Kart</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Link</a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link disabled" href="#">Disabled</a>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0" action="{{ url_for('search_movie') }}" method = "post">
+  <input class="form-control mr-sm-2" name="search" type="search" placeholder="Search Movie" aria-label="Search">
+  <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+</form>
+  </div>
+</nav>
+
 
 
 <!--this line makes the card appear in the middle-->
@@ -26,10 +57,10 @@
 
 		<div class="mv-content">
 			<div class="mv-content-header">
-				<a class="mvs" href="#">
+				<a class="mvs" href="{{url_for('show_movie',title = movies.title[t])}}">
 					<h3 class="mv-title">{{movies.title[t]}}</h3>
 				</a>
-<!--                <button>9.99$</button>-->
+
 				<div class="mvdesc-logo"></div>
 			</div>
 			<div class="mv-info">
@@ -62,6 +93,8 @@
 {% endfor %}
 <!--</div>&lt;!&ndash;container&ndash;&gt;-->
 
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 
 </body>

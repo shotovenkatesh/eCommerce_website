@@ -119,6 +119,25 @@ def signup_details():
         # redirect them to homepage
         return render_template("movies.html",movies = trending_movies,total = len(trending_movies["title"]))
 
+@app.route("/screen/<title>")
+def show_movie(title):
+    index = trending_movies["title"].index(title)
+    name = title
+    img = trending_movies["poster"][index]
+    y_o_r = trending_movies["release_date"][index]
+    genre = trending_movies["genre"][index]
+    rating = trending_movies["ratings"][index]
+    ov = trending_movies["overview"][index]
+
+    # return "Hello"
+    return render_template("screen.html",img = img,name = name,year = y_o_r,genre = genre,rating = rating,ov = ov)
+
+@app.route("/search",methods =["GET", "POST"])
+def search_movie():
+    if request.method == "POST":
+        movie_name = request.form.get("search")
+        movie_data = movies.find_movie(movie_name)
+        return render_template("screen.html",img = movie_data["poster"],name = movie_data["title"],year = movie_data["release_date"],genre = movie_data["genre"],rating = movie_data["ratings"],ov = movie_data["overview"])
 
 if __name__ == "__main__":
     app.run("0.0.0.0",port=80,debug=True)

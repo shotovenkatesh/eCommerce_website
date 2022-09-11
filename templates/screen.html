@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Movie Kart</title>
+    <link rel="stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/screen.css') }}">
+
+</head>
+<body>
+<div class="wrapper">
+	<div class="main_card">
+		<div class="card_left">
+			<div class="card_datails">
+				<h1>{{name}}</h1>
+				<div class="card_cat">
+					<p class="PG">Rating:
+                        {{rating}}</p>
+					<p class="year">{{year}}</p>
+                    {% for g in genre %}
+					<p class="genre">{{g}}</p>
+                    {% endfor %}
+					<p class="time">2h 28m</p>
+				</div>
+				<p class="disc">{{ov}}</p>
+				<a href="https://www.imdb.com/title/tt4912910/" target="_blank">Read More</a>
+			<div class="social-btn">
+        <!-- WATCH TRAILER-->
+				<button>
+					<i class="fas fa-play"></i> Buy Now
+				</button>
+				<!-- GET-->
+				<button>
+					<i class="fas fa-download"></i> Add to Cart
+				</button>
+				<!--USERS RATINGS-->
+<!--				<button>-->
+<!--					<i class="fas fa-thumbs-up"></i> 97%-->
+<!--				</button>-->
+<!--				&lt;!&ndash;BOOKMARK&ndash;&gt;-->
+<!--				<button>-->
+<!--					<i class="fas fa-star"></i>-->
+<!--				</button>-->
+			</div>
+			</div>
+		</div>
+		<div class="card_right">
+			<div class="img_container">
+				<img src={{img}} alt="">
+				</div>
+				<div class="play_btn">
+					<a href="https://www.imdb.com/title/tt4912910/" target="_blank">
+						<i class="fas fa-play-circle"></i>
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+<!-- FOLLOW -->
+<a class="Follow" href="https://codepen.io/ZaynAlaoudi/" target="blank_"></a>
+
+
+
+
+
+</body>
+</html>

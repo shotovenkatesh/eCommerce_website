@@ -47,27 +47,7 @@ a.mvs:hover {
   border-top-right-radius: 10px;
 }
 
-.manOfSteel {
-  background: url("http://henrycavill.org/images/Films/2013-Man-of-Steel/posters/3-Walmart-Superman-a.jpg");
-  background-size: cover;
-}
 
-.babyDriver {
-  background: url("https://i0.wp.com/media2.slashfilm.com/slashfilm/wp/wp-content/images/baby-driver-poster.jpg");
-  background-size: cover;
-}
-
-.theDarkTower {
-  background: url("http://cdn.collider.com/wp-content/uploads/2017/03/the-dark-tower-poster.jpg");
-  background-size: cover;
-  background-position: 100% 100%;
-}
-
-.bladeRunner2049 {
-  background: url("http://cdn.collider.com/wp-content/uploads/2017/05/blade-runner-2049-poster-ryan-gosling.jpeg");
-  background-size: cover;
-  background-position: 100% 80%;
-}
 
 .header-icon-container {
   position: relative;

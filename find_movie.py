@@ -1,15 +1,6 @@
 import requests
 
-API_KEY = ""
-GENRE = { 28: 'Action', 12: 'Adventure',  16: 'Animation',
-          35: 'Comedy', 80: 'Crime',  99: 'Documentary',
-          18: 'Drama', 10751: 'Family',  14: 'Fantasy',
-          36: 'History', 27: 'Horror',  10402: 'Music',
-          9648: 'Mystery', 10749: 'Romance',  878: 'Science Fiction',
-          10770: 'TV Movie', 53: 'Thriller',  10752: 'War',
-          37: 'Western'}
-
-
+API_KEY = "9b103ab1054705e31dffe1fd97af9753"
 
 class Movies:
 
@@ -46,22 +37,6 @@ class Movies:
 
             self.page += 1
 
-    def find_movie(self,movie_name):
-        movie_request = requests.get(f"https://api.themoviedb.org/3/search/movie?api_key={API_KEY}&query={movie_name}")
-        movie_data = movie_request.json()["results"][0]
-        # print(movie_data)
-        g_list = [GENRE[g] for g in movie_data['genre_ids']]
-        movie_info = {
-            "title" : movie_data["original_title"],
-            "overview" : movie_data["overview"],
-            "poster" : f"https://image.tmdb.org/t/p/original{movie_data['poster_path']}",
-            "release_date" : movie_data["release_date"],
-            "genre" : g_list,
-            "ratings" : movie_data["vote_average"]
-        }
-        # print(movie_info)
-        return movie_info
-
     def get_genre(self):
         print(self.movie_data["genre"])
 
@@ -70,4 +45,5 @@ class Movies:
 
 #
 # t = Movies()
-# t.find_movie("one piece red")
+# t.get_trending_movies()
+# t.get_genre()
