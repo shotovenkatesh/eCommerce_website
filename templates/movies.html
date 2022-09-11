@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Movie Store</title>
+	<meta charset="UTF-8">
+      <link rel="stylesheet" href="static/css/movies.css">
+</head>
+<body bgcolor="#343A40">
+
+
+<!--this line makes the card appear in the middle-->
+
+
+
+<!--<div class="mvscont">-->
+
+	{% for t in range(total) %}
+	<div class="mv-card">
+		<div class="mv-header" style="background-image: url({{movies.poster[t]}}); background-size: cover;">
+			<div class="header-icon-container">
+				<a class="mvs" href="#">
+					<i class="fa header-icon"></i>
+				</a>
+			</div>
+		</div><!--movie-header-->
+
+		<div class="mv-content">
+			<div class="mv-content-header">
+				<a class="mvs" href="#">
+					<h3 class="mv-title">{{movies.title[t]}}</h3>
+				</a>
+<!--                <button>9.99$</button>-->
+				<div class="mvdesc-logo"></div>
+			</div>
+			<div class="mv-info">
+
+                <div class="info-section">
+					<p>Add to cart</p>
+					<p>9.99$</p>
+					<p></p>
+<!--                    {{movies.overview[t]}}-->
+                </div>
+				<div class="info-section">
+					<label style="visibility: hidden;">Time and Date</label>
+				</div><!--date,time-->
+				<div class="info-section">
+					<label>Release Date</label>
+					<span>{{movies.release_date[t]}}</span>
+				</div><!--screen-->
+				<div class="info-section">
+					<label>Ratings</label>
+					<span>{{movies.ratings[t]}}</span>
+				</div><!--row-->
+
+			</div>
+		</div><!--movie-content-->
+	</div>
+
+
+
+	</div><!--movie-card-->
+{% endfor %}
+<!--</div>&lt;!&ndash;container&ndash;&gt;-->
+
+
+
+</body>

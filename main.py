@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin, login_user, LoginManager, login_required, current_user, logout_user
 from sqlalchemy.orm import relationship
 from werkzeug.security import  generate_password_hash, check_password_hash
-
+from trending import Movies
 
 app = Flask(__name__)
 
@@ -13,6 +13,10 @@ app.secret_key = '3ase7xrc86t9v7y0b8unim59c7tvoypibujnexrcfgvhj'
 db = SQLAlchemy(app)
 login_manager = LoginManager()
 login_manager.init_app(app)
+movies = Movies()
+movies.get_trending_movies()
+trending_movies = movies.movie_data
+
 
 #Creating/Configuring Tables
 
@@ -53,14 +57,16 @@ def login_details():
     if user_exist :
         correct_password = check_password_hash(user_exist.password, password)
         if correct_password:
+            # print(trending_movies)
             # redirect them to homepage
-            return "Welcome back old user"
+
+            return render_template("movies.html",movies = trending_movies,total = len(trending_movies["title"]))
         else:
             flash("Incorrect Password")
             return redirect(url_for('login_details'))
     else:
         flash("Looks Like you're a new user, kindly sign up")
-        return render_template("signup.html")
+        return redirect(url_for('create_acc'))
 
 
 @app.route("/create")
@@ -79,6 +85,20 @@ def signup_details():
     city = request.form["city"]
     state = request.form["state"]
     pincode = request.form["pincode"]
+    # new_user = User(
+    #     email=email,
+    #     password=hashed_password,
+    #     name=name,
+    #     c_no=c_no,
+    #     address=address,
+    #     city=city,
+    #     state=state,
+    #     pin_code=pincode
+    # )
+    # db.session.add(new_user)
+    # db.session.commit()
+    # # redirect them to homepage
+    # return render_template("movies.html", movies=trending_movies, total=len(trending_movies["title"]))
     existing_user = db.session.query(User).filter_by(email=email).first()
     if existing_user:
         flash("You have already signed up with that email, Use login instead")
@@ -97,7 +117,7 @@ def signup_details():
         db.session.add(new_user)
         db.session.commit()
         # redirect them to homepage
-        return "Welcome new user!"
+        return render_template("movies.html",movies = trending_movies,total = len(trending_movies["title"]))
 
 
 if __name__ == "__main__":
