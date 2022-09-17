@@ -3,14 +3,14 @@
 <head>
 	<title>Movie Store</title>
 	<meta charset="UTF-8">
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
       <link rel="stylesheet" href="static/css/movies.css">
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 
 </head>
-<body bgcolor="#343A40">
+<body >
 
 <!--nav barrr-->
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg ">
 
  <a class="navbar-brand" href="#">Movie Kart</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -66,9 +66,10 @@
 			<div class="mv-info">
 
                 <div class="info-section">
-					<p>Add to cart</p>
-					<p>9.99$</p>
-					<p></p>
+					<p><a type="button" class="btn btn-warning" href="{{url_for('check_out')}}">Add to cart</a></p>
+					<p><a type="button" class="btn btn-outline-success" href="{{url_for('check_out')}}">Buy Now</a></p>
+
+
 <!--                    {{movies.overview[t]}}-->
                 </div>
 				<div class="info-section">

@@ -139,5 +139,10 @@ def search_movie():
         movie_data = movies.find_movie(movie_name)
         return render_template("screen.html",img = movie_data["poster"],name = movie_data["title"],year = movie_data["release_date"],genre = movie_data["genre"],rating = movie_data["ratings"],ov = movie_data["overview"])
 
+
+@app.route("/checkout")
+def check_out():
+    return "This is checkout page"
+
 if __name__ == "__main__":
     app.run("0.0.0.0",port=80,debug=True)
