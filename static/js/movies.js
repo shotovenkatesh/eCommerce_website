@@ -25,7 +25,3 @@ card.addEventListener('click', function(e){
   }
 });
 
-/*
-References in the <head> for the conic-gradient background due to lack of browser support outside of Chrome.
-via: https://leaverou.github.io/conic-gradient/
-*/

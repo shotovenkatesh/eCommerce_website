@@ -26,11 +26,15 @@
 			<div class="social-btn">
         <!-- WATCH TRAILER-->
 				<button>
-					<i class="fas fa-play"></i> Buy Now
+					<a href="{{url_for('show_movies')}}">
+					<i class="fas fa-play"></i> Continue Shopping
+					</a>
 				</button>
 				<!-- GET-->
-				<button>
+				<button> <a href="{{url_for('add_to_cart',title = name)}}">
 					<i class="fas fa-download"></i> Add to Cart
+				</a>
+
 				</button>
 				<!--USERS RATINGS-->
 <!--				<button>-->

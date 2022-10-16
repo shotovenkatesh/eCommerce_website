@@ -5,6 +5,14 @@
 	<meta charset="UTF-8">
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
       <link rel="stylesheet" href="static/css/movies.css">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" href="static/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="path/to/bootstrap/css/bootstrap.min.css">
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+
+
+
 
 </head>
 <body >
@@ -19,15 +27,13 @@
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Link</a>
-      </li>
 
       <li class="nav-item">
-        <a class="nav-link disabled" href="#">Disabled</a>
+
+
+
+
+        <a class="nav-link" href="{{url_for('show_cart')}}"><i class="fa fa-solid fa-film"></i></a>
       </li>
     </ul>
     <form class="form-inline my-2 my-lg-0" action="{{ url_for('search_movie') }}" method = "post">
@@ -66,7 +72,9 @@
 			<div class="mv-info">
 
                 <div class="info-section">
-					<p><a type="button" class="btn btn-warning" href="{{url_for('check_out')}}">Add to cart</a></p>
+
+					<p><a type="button" class="btn btn-warning add-to-cart-button" href="{{url_for('add_to_cart',title = movies.title[t] )}}">Add to cart</a></p>
+
 					<p><a type="button" class="btn btn-outline-success" href="{{url_for('check_out')}}">Buy Now</a></p>
 
 
@@ -94,8 +102,21 @@
 {% endfor %}
 <!--</div>&lt;!&ndash;container&ndash;&gt;-->
 
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="static/vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+	<script src="static/vendor/bootstrap/js/popper.js"></script>
+	<script src="static/vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+	<script src="static/vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+	<script src="static/vendor/tilt/tilt.jquery.min.js"></script>
+	<script >
+		$(".add-to-cart-button").click(function () {
+  $(this).html('Added to cart');
+});
+	</script>
+<!--===============================================================================================-->
+	<script src="static/js/main.js"></script>
 
 
 </body>
