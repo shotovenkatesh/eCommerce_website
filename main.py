@@ -8,7 +8,7 @@ import stripe
 import json
 app = Flask(__name__)
 
-stripe.api_key = "sk_test_51LjJupSAelFje3XRnOSlhCJPXUWWohb2OybQZ9eefenyMWwhbTE7gVAsU4z61jmm9RpaXUGEV9NSpliZcDhGjG6A00r2SOfYBN"
+stripe.api_key = ""
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///movies.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
