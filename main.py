@@ -161,7 +161,7 @@ def add_to_cart(title):
         index = trending_movies["title"].index(title)
     except ValueError:
         searched_movie = movies.find_movie(title)
-        added_to_cart_movie = {
+        add_to_cart_movie = {
             "title": searched_movie["title"],
             "img": searched_movie["poster"],
             "ov": searched_movie["overview"]
@@ -169,13 +169,13 @@ def add_to_cart(title):
     else:
         img = trending_movies["poster"][index]
         ov = trending_movies["overview"][index]
-        added_to_cart_movie = {
+        add_to_cart_movie = {
         "title" : title,
         "img" : img,
         "ov" : ov
     }
-    if added_to_cart_movie not in carted_movies:
-        carted_movies.append(added_to_cart_movie)
+    if add_to_cart_movie not in carted_movies:
+        carted_movies.append(add_to_cart_movie)
     return '', 204
 
 @app.route("/showcart")
@@ -184,7 +184,7 @@ def show_cart():
     return render_template("cart.html",cmovies = carted_movies)
 @app.route("/checkout")
 def check_out():
-    return "This is checkout page. yet to be added"
+    return " checkout page yet to be added"
 
 @app.route("/delete/<title>")
 def delete_movie(title):
