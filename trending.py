@@ -1,6 +1,6 @@
 import requests
 
-API_KEY = "9b103ab1054705e31dffe1fd97af9753"
+API_KEY = ""
 GENRE = { 28: 'Action', 12: 'Adventure',  16: 'Animation',
           35: 'Comedy', 80: 'Crime',  99: 'Documentary',
           18: 'Drama', 10751: 'Family',  14: 'Fantasy',
@@ -22,7 +22,8 @@ class Movies:
             "release_date": [],
             "ratings": [],
             "genre": [],
-            "duration": []
+            "duration": [],
+
         }
 
     def get_trending_movies(self):
@@ -57,7 +58,8 @@ class Movies:
             "poster" : f"https://image.tmdb.org/t/p/original{movie_data['poster_path']}",
             "release_date" : movie_data["release_date"],
             "genre" : g_list,
-            "ratings" : movie_data["vote_average"]
+            "ratings" : movie_data["vote_average"],
+
         }
         # print(movie_info)
         return movie_info
