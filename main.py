@@ -1,11 +1,14 @@
-from flask import Flask, render_template, request,url_for, redirect, flash
+from flask import Flask, render_template, request,url_for, redirect, flash ,jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin, login_user, LoginManager, login_required, current_user, logout_user
 from sqlalchemy.orm import relationship
 from werkzeug.security import  generate_password_hash, check_password_hash
 from trending import Movies
-
+import stripe
+import json
 app = Flask(__name__)
+
+stripe.api_key = "sk_test_51LjJupSAelFje3XRnOSlhCJPXUWWohb2OybQZ9eefenyMWwhbTE7gVAsU4z61jmm9RpaXUGEV9NSpliZcDhGjG6A00r2SOfYBN"
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///movies.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -16,6 +19,11 @@ login_manager.init_app(app)
 movies = Movies()
 movies.get_trending_movies()
 trending_movies = movies.movie_data
+carted_movies = []
+ADDED_TO_CART = {
+    "yes" : "Added to cart",
+    "no" : "Add to cart",
+}
 
 
 #Creating/Configuring Tables
@@ -40,6 +48,9 @@ class BlogPost(db.Model):
 
 # db.create_all()
 
+@app.route("/trending movies")
+def show_movies():
+    return render_template("movies.html", movies=trending_movies, total=len(trending_movies["title"]))
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -60,7 +71,8 @@ def login_details():
             # print(trending_movies)
             # redirect them to homepage
 
-            return render_template("movies.html",movies = trending_movies,total = len(trending_movies["title"]))
+            # return render_template("movies.html",movies = trending_movies,total = len(trending_movies["title"]))
+            return redirect(url_for("show_movies"))
         else:
             flash("Incorrect Password")
             return redirect(url_for('login_details'))
@@ -117,7 +129,9 @@ def signup_details():
         db.session.add(new_user)
         db.session.commit()
         # redirect them to homepage
-        return render_template("movies.html",movies = trending_movies,total = len(trending_movies["title"]))
+        # return render_template("movies.html",movies = trending_movies,total = len(trending_movies["title"]))
+        return redirect(url_for("show_movies"))
+
 
 @app.route("/screen/<title>")
 def show_movie(title):
@@ -140,9 +154,44 @@ def search_movie():
         return render_template("screen.html",img = movie_data["poster"],name = movie_data["title"],year = movie_data["release_date"],genre = movie_data["genre"],rating = movie_data["ratings"],ov = movie_data["overview"])
 
 
+
+@app.route("/cart.js/<title>")
+def add_to_cart(title):
+    try:
+        index = trending_movies["title"].index(title)
+    except ValueError:
+        searched_movie = movies.find_movie(title)
+        added_to_cart_movie = {
+            "title": searched_movie["title"],
+            "img": searched_movie["poster"],
+            "ov": searched_movie["overview"]
+        }
+    else:
+        img = trending_movies["poster"][index]
+        ov = trending_movies["overview"][index]
+        added_to_cart_movie = {
+        "title" : title,
+        "img" : img,
+        "ov" : ov
+    }
+    if added_to_cart_movie not in carted_movies:
+        carted_movies.append(added_to_cart_movie)
+    return '', 204
+
+@app.route("/showcart")
+def show_cart():
+    # print(carted_movies)
+    return render_template("cart.html",cmovies = carted_movies)
 @app.route("/checkout")
 def check_out():
-    return "This is checkout page"
+    return "This is checkout page. yet to be added"
+
+@app.route("/delete/<title>")
+def delete_movie(title):
+    global carted_movies
+    carted_movies = [movie for movie in carted_movies if movie["title"] != title]
+    return redirect(url_for('show_cart'))
+
 
 if __name__ == "__main__":
     app.run("0.0.0.0",port=80,debug=True)
