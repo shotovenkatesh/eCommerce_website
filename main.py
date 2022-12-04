@@ -8,7 +8,11 @@ import stripe
 import json
 app = Flask(__name__)
 
-stripe.api_key = ""
+stripe_keys = {
+    "secret_key": "",
+    "publishable_key": "",
+}
+stripe.api_key = stripe_keys["secret_key"]
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///movies.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -25,6 +29,7 @@ ADDED_TO_CART = {
     "no" : "Add to cart",
 }
 
+stripe_checkout_movies = []
 
 #Creating/Configuring Tables
 
@@ -178,13 +183,92 @@ def add_to_cart(title):
         carted_movies.append(add_to_cart_movie)
     return '', 204
 
+
+def create_stripe_product(movie_name):
+    product = stripe.Product.create(name =movie_name)
+    price = stripe.Price.create(
+        product = product.id,
+        unit_amount = 299,
+        currency = "inr"
+    )
+    product_id = price.id
+    return product_id
+
+
 @app.route("/showcart")
 def show_cart():
-    # print(carted_movies)
+    global stripe_checkout_movies
+    global carted_movies
+    #these below few lines of code gets the movie name of the items in cart and create a stripe product for it
+    #the stripe product id is stored in the list for checkout puropse
+    movie_names =[]
+    for movie in carted_movies:
+        stripe_checkout_movies.append(movie["title"])
+    # for movie in movie_names:
+    #     carted_product_ids.append(create_stripe_product(movie))
+    # print(carted_product_ids)
     return render_template("cart.html",cmovies = carted_movies)
-@app.route("/checkout")
-def check_out():
-    return " checkout page yet to be added"
+
+
+@app.route("/cart-checkout",methods = ["POST"])
+def cart_checkout():
+    global stripe_checkout_movies
+    l_i = []
+    for m in stripe_checkout_movies:
+        a = {
+            "price": create_stripe_product(movie_name=m),
+            "quantity": 1,
+        }
+        l_i.append(a)
+    domain_url = "http://192.168.0.101:80/"
+    stripe.api_key = ""
+    try:
+        checkout_session = stripe.checkout.Session.create(
+            success_url=domain_url + "success?session_id={CHECKOUT_SESSION_ID}",
+            cancel_url=domain_url + "cancelled",
+            line_items=l_i,
+            mode="payment",
+        )
+    except Exception as e:
+        return jsonify(error=str(e)), 403
+
+    return redirect(checkout_session.url, code=303)
+
+
+
+
+@app.route("/create-checkout-session",methods = ["POST"])
+def create_checkout_session():
+    # global stripe_checkout_movies
+    # try:
+    #     stripe_checkout_movies.append()
+    # except:
+    #     pass
+    # line_items = []
+    # print(line_items)
+    # for movie in stripe_checkout_movies:
+    #     line_items.append({
+    #         "price": create_stripe_product(movie_name=movie),
+    #         "quantity": 1,
+    #     })
+    # print(line_items)
+    domain_url = "http://192.168.0.101:80/"
+    stripe.api_key = ""
+
+    try:
+        checkout_session = stripe.checkout.Session.create(
+            success_url=domain_url + "success?session_id={CHECKOUT_SESSION_ID}",
+            cancel_url=domain_url + "cancelled",
+            line_items=[{
+            "price": create_stripe_product(movie_name=request.form.get('m_name')),
+            "quantity": 1,
+        }],
+            mode="payment",
+        )
+    except Exception as e:
+        return jsonify(error=str(e)), 403
+
+    return redirect(checkout_session.url,code=303)
 
 @app.route("/delete/<title>")
 def delete_movie(title):
@@ -192,6 +276,10 @@ def delete_movie(title):
     carted_movies = [movie for movie in carted_movies if movie["title"] != title]
     return redirect(url_for('show_cart'))
 
+@app.route("/config")
+def get_publishable_key():
+    stripe_config = {"publicKey": stripe_keys["publishable_key"]}
+    return jsonify(stripe_config)
 
 if __name__ == "__main__":
     app.run("0.0.0.0",port=80,debug=True)

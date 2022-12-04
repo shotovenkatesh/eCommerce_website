@@ -74,8 +74,12 @@
                 <div class="info-section">
 
 					<p><a type="button" class="btn btn-warning add-to-cart-button" href="{{url_for('add_to_cart',title = movies.title[t] )}}">Add to cart</a></p>
+					<form action="create-checkout-session" method="post">
+						<input type="hidden" name="m_name" value="{{movies.title[t]}}" />
+						  <button type="submit" class="btn btn-outline-success">Buy Now</button>
 
-					<p><a type="button" class="btn btn-outline-success" href="{{url_for('check_out')}}">Buy Now</a></p>
+					</form>
+
 
 
 <!--                    {{movies.overview[t]}}-->

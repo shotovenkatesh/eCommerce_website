@@ -51,8 +51,11 @@
 						<tr>
 							<td><a href="{{url_for('show_movies')}}" class="btn btn-warning"><i class="fa fa-angle-left"></i> Continue Shopping</a></td>
 							<td colspan="2" class="hidden-xs"></td>
-							<td class="hidden-xs text-center"><strong>Total $40</strong></td>
-							<td><a href="#" class="btn btn-success btn-block">Checkout <i class="fa fa-angle-right"></i></a></td>
+							<td class="hidden-xs text-center"><strong>Total $0</strong></td>
+							<form action="cart-checkout" method="post">
+						  <button type="submit" class="btn btn-success btn-block"><i class="fa fa-angle-right"></i>Buy Now</button>
+
+					</form>
 						</tr>
 					</tfoot>
 				</table>
