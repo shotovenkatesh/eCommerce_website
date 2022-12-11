@@ -188,8 +188,8 @@ def create_stripe_product(movie_name):
     product = stripe.Product.create(name =movie_name)
     price = stripe.Price.create(
         product = product.id,
-        unit_amount = 299,
-        currency = "inr"
+        unit_amount = 9.99,
+        currency = "usd"
     )
     product_id = price.id
     return product_id
@@ -239,19 +239,6 @@ def cart_checkout():
 
 @app.route("/create-checkout-session",methods = ["POST"])
 def create_checkout_session():
-    # global stripe_checkout_movies
-    # try:
-    #     stripe_checkout_movies.append()
-    # except:
-    #     pass
-    # line_items = []
-    # print(line_items)
-    # for movie in stripe_checkout_movies:
-    #     line_items.append({
-    #         "price": create_stripe_product(movie_name=movie),
-    #         "quantity": 1,
-    #     })
-    # print(line_items)
     domain_url = "https://movie-store-sswp.onrender.com"
     stripe.api_key = "sk_test_51LjJupSAelFje3XRnOSlhCJPXUWWohb2OybQZ9eefenyMWwhbTE7gVAsU4z61jmm9RpaXUGEV9NSpliZcDhGjG6A00r2SOfYBN"
 
