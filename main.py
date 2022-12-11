@@ -220,12 +220,12 @@ def cart_checkout():
             "quantity": 1,
         }
         l_i.append(a)
-    domain_url = "http://192.168.0.101:80/"
+    domain_url = "https://movie-store-sswp.onrender.com"
     stripe.api_key = "sk_test_51LjJupSAelFje3XRnOSlhCJPXUWWohb2OybQZ9eefenyMWwhbTE7gVAsU4z61jmm9RpaXUGEV9NSpliZcDhGjG6A00r2SOfYBN"
     try:
         checkout_session = stripe.checkout.Session.create(
-            success_url="success.html",
-            cancel_url="failure.html",
+            success_url=domain_url + "success?session_id={CHECKOUT_SESSION_ID}",
+            cancel_url=domain_url + "cancelled",
             line_items=l_i,
             mode="payment",
         )
