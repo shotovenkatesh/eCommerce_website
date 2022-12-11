@@ -9,8 +9,8 @@ import json
 app = Flask(__name__)
 
 stripe_keys = {
-    "secret_key": "",
-    "publishable_key": "",
+    "secret_key": "sk_test_51LjJupSAelFje3XRnOSlhCJPXUWWohb2OybQZ9eefenyMWwhbTE7gVAsU4z61jmm9RpaXUGEV9NSpliZcDhGjG6A00r2SOfYBN",
+    "publishable_key": "sk_test_51LjJupSAelFje3XRnOSlhCJPXUWWohb2OybQZ9eefenyMWwhbTE7gVAsU4z61jmm9RpaXUGEV9NSpliZcDhGjG6A00r2SOfYBN",
 }
 stripe.api_key = stripe_keys["secret_key"]
 
@@ -221,11 +221,11 @@ def cart_checkout():
         }
         l_i.append(a)
     domain_url = "http://192.168.0.101:80/"
-    stripe.api_key = ""
+    stripe.api_key = "sk_test_51LjJupSAelFje3XRnOSlhCJPXUWWohb2OybQZ9eefenyMWwhbTE7gVAsU4z61jmm9RpaXUGEV9NSpliZcDhGjG6A00r2SOfYBN"
     try:
         checkout_session = stripe.checkout.Session.create(
-            success_url=domain_url + "success?session_id={CHECKOUT_SESSION_ID}",
-            cancel_url=domain_url + "cancelled",
+            success_url="success.html",
+            cancel_url="failure.html",
             line_items=l_i,
             mode="payment",
         )
@@ -253,7 +253,7 @@ def create_checkout_session():
     #     })
     # print(line_items)
     domain_url = "http://192.168.0.101:80/"
-    stripe.api_key = ""
+    stripe.api_key = "sk_test_51LjJupSAelFje3XRnOSlhCJPXUWWohb2OybQZ9eefenyMWwhbTE7gVAsU4z61jmm9RpaXUGEV9NSpliZcDhGjG6A00r2SOfYBN"
 
     try:
         checkout_session = stripe.checkout.Session.create(

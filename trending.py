@@ -1,6 +1,6 @@
 import requests
 
-API_KEY = ""
+API_KEY = "9b103ab1054705e31dffe1fd97af9753"
 GENRE = { 28: 'Action', 12: 'Adventure',  16: 'Animation',
           35: 'Comedy', 80: 'Crime',  99: 'Documentary',
           18: 'Drama', 10751: 'Family',  14: 'Fantasy',
