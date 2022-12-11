@@ -252,7 +252,7 @@ def create_checkout_session():
     #         "quantity": 1,
     #     })
     # print(line_items)
-    domain_url = "http://192.168.0.101:80/"
+    domain_url = "https://movie-store-sswp.onrender.com"
     stripe.api_key = "sk_test_51LjJupSAelFje3XRnOSlhCJPXUWWohb2OybQZ9eefenyMWwhbTE7gVAsU4z61jmm9RpaXUGEV9NSpliZcDhGjG6A00r2SOfYBN"
 
     try:
