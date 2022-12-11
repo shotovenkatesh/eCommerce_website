@@ -188,7 +188,7 @@ def create_stripe_product(movie_name):
     product = stripe.Product.create(name =movie_name)
     price = stripe.Price.create(
         product = product.id,
-        unit_amount = 9.99,
+        unit_amount = 10,
         currency = "usd"
     )
     product_id = price.id
