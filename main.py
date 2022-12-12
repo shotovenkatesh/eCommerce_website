@@ -102,39 +102,39 @@ def signup_details():
     city = request.form["city"]
     state = request.form["state"]
     pincode = request.form["pincode"]
-    new_user = User(
-        email=email,
-        password=hashed_password,
-        name=name,
-        c_no=c_no,
-        address=address,
-        city=city,
-        state=state,
-        pin_code=pincode
-    )
-    db.session.add(new_user)
-    db.session.commit()
+    # new_user = User(
+    #     email=email,
+    #     password=hashed_password,
+    #     name=name,
+    #     c_no=c_no,
+    #     address=address,
+    #     city=city,
+    #     state=state,
+    #     pin_code=pincode
+    # )
+    # db.session.add(new_user)
+    # db.session.commit()
     # redirect them to homepage
     # return render_template("movies.html", movies=trending_movies, total=len(trending_movies["title"]))
-    return redirect(url_for("show_movies"))
 
-    # existing_user = db.session.query(User).filter_by(email=email).first()
-    # if existing_user:
-    #     flash("You have already signed up with that email, Use login instead")
-    #     return redirect(url_for('login_details'))
-    # else:
-    #     new_user = User(
-    #         email=email,
-    #         password=hashed_password,
-    #         name=name,
-    #         c_no=c_no,
-    #         address=address,
-    #         city=city,
-    #         state=state,
-    #         pin_code=pincode
-    #     )
-    #     db.session.add(new_user)
-    #     db.session.commit()
+    existing_user = db.session.query(User).filter_by(email=email).first()
+    if existing_user:
+        flash("You have already signed up with that email, Use login instead")
+        return redirect(url_for('login_details'))
+    else:
+        new_user = User(
+            email=email,
+            password=hashed_password,
+            name=name,
+            c_no=c_no,
+            address=address,
+            city=city,
+            state=state,
+            pin_code=pincode
+        )
+        db.session.add(new_user)
+        db.session.commit()
+        return redirect(url_for("show_movies"))
         # redirect them to homepage
         # return redirect(url_for("show_movies"))
 
